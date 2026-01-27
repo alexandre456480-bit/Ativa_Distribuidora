@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produtos - ATIVA</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <div style="text-align: center; margin-bottom: 25px;">
+        <img src="/static/logo.png" alt="Logo ATIVA" style="max-height: 80px; width: auto; object-fit: contain;">
+    </div>
+    <h2>🌿 Cadastro de Produtos</h2>
+
+    <form method="POST">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <input type="text" name="nome" placeholder="Nome do produto" required style="flex: 1; min-width: 200px;">
+            <button type="submit" class="btn">✅ Adicionar Produto</button>
+        </div>
+    </form>
+
+    {% if produtos %}
+        <h3 style="color: #2ecc71; margin-top: 30px; margin-bottom: 15px;">Produtos Cadastrados ({{ produtos|length }})</h3>
+        <ul>
+            {% for p in produtos %}
+            <li>
+                <span>{{ p }}</span>
+                <a class="btn-danger" href="/remover_produto/{{ p }}">🗑️ Remover</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="card" style="text-align: center; margin-top: 40px;">
+            <p style="opacity: 0.8;">Nenhum produto cadastrado ainda.</p>
+        </div>
+    {% endif %}
+
+    <a class="btn-voltar" href="/">← Voltar</a>
+</div>
+</body>
+</html>

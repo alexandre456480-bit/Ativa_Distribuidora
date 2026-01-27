@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Pedido - ATIVA</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <div style="text-align: center; margin-bottom: 25px;">
+        <img src="/static/logo.png" alt="Logo ATIVA" style="max-height: 80px; width: auto; object-fit: contain;">
+    </div>
+    <h2>🧾 Novo Pedido</h2>
+
+    <form method="POST" id="formPedido">
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <input type="text" name="cliente" id="cliente" placeholder="Nome do Cliente" required style="flex: 1; min-width: 200px;">
+            <input type="date" name="data" id="data" required style="min-width: 150px;">
+        </div>
+
+        <hr>
+
+        <!-- BOTÃO FILTRO -->
+        <button type="button" class="btn" onclick="toggleFiltro()">
+            📋 Selecionar Produtos
+        </button>
+
+        <!-- FILTRO DE PRODUTOS -->
+        <div id="filtro" style="display:none; margin-top:20px; background: rgba(255, 255, 255, 0.08); padding: 20px; border-radius: 12px; backdrop-filter: blur(10px);">
+            <label style="display: block; margin-bottom: 10px; font-weight: 600;">Escolha os produtos:</label>
+            <select id="listaProdutos" multiple size="6" style="width: 100%;">
+                {% for p in produtos|sort %}
+                    <option value="{{ p }}">{{ p }}</option>
+                {% endfor %}
+            </select>
+
+            <br><br>
+            <button type="button" class="btn btn-grande" onclick="adicionarProdutos()">
+                ✅ Adicionar Produtos Selecionados
+            </button>
+            <p style="margin-top: 10px; opacity: 0.8;"><small>💡 Segure CTRL para selecionar vários produtos</small></p>
+        </div>
+
+        <hr>
+
+        <!-- PRODUTOS SELECIONADOS -->
+        <div id="produtosSelecionados"></div>
+
+        <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
+            <button type="submit" class="btn btn-grande">
+                📥 Gerar e Baixar Pedido
+            </button>
+
+            <button type="button" class="btn btn-danger" onclick="limparPedido()">
+                🔄 Limpar Pedido
+            </button>
+        </div>
+    </form>
+
+    <a class="btn-voltar" href="/">← Voltar</a>
+</div>
+
+<script>
+function toggleFiltro() {
+    const filtro = document.getElementById("filtro");
+    filtro.style.display = filtro.style.display === "none" ? "block" : "none";
+}
+
+function adicionarProdutos() {
+    const select = document.getElementById("listaProdutos");
+    const container = document.getElementById("produtosSelecionados");
+
+    Array.from(select.selectedOptions).forEach(option => {
+        const produto = option.value;
+
+        // Evita duplicar produto
+        if (document.getElementById("produto_" + produto)) return;
+
+        const div = document.createElement("div");
+        div.className = "card";
+        div.id = "produto_" + produto;
+
+        div.innerHTML = `
+            <strong style="font-size: 1.1rem; color: #2ecc71;">📦 ${produto}</strong><br>
+            <div style="margin-top: 15px; display: flex; gap: 15px; flex-wrap: wrap;">
+                <input type="number" name="qtd_${produto}" placeholder="Quantidade" required min="1" style="flex: 1; min-width: 150px;">
+                <select name="unidade_${produto}" style="flex: 1; min-width: 150px;">
+                    {% for u in unidades %}
+                        <option value="{{ u }}">{{ u }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="preco_${produto}" placeholder="Preço Unitário (R$)" step="0.01" style="flex: 1; min-width: 150px;">
+                <input type="number" name="valor_${produto}" placeholder="Valor Total (R$)" step="0.01" style="flex: 1; min-width: 150px;">
+                <button type="button" class="btn-danger" onclick="removerProduto('${produto}')">
+                    🗑️ Remover
+                </button>
+            </div>
+
+            <input type="hidden" name="produtos[]" value="${produto}">
+        `;
+
+        container.appendChild(div);
+    });
+}
+
+function removerProduto(produto) {
+    const div = document.getElementById("produto_" + produto);
+    if (div) div.remove();
+}
+
+function limparPedido() {
+    // Limpa cliente e data
+    document.getElementById("cliente").value = "";
+    document.getElementById("data").value = "";
+
+    // Remove todos os produtos selecionados
+    document.getElementById("produtosSelecionados").innerHTML = "";
+
+    // Limpa seleção do filtro
+    const select = document.getElementById("listaProdutos");
+    Array.from(select.options).forEach(option => option.selected = false);
+    
+    // Fecha o filtro
+    document.getElementById("filtro").style.display = "none";
+}
+</script>
+</body>
+</html>
