@@ -8,57 +8,71 @@
 </head>
 <body>
 <div class="container">
-    <div style="text-align: center; margin-bottom: 25px;">
-        <img src="/static/logo.png" alt="Logo ATIVA" style="max-height: 80px; width: auto; object-fit: contain;">
+    <div class="logo-container">
+        <img src="/static/logo.png" alt="Logo ATIVA">
     </div>
-    <h2>🧾 Novo Pedido</h2>
+    
+    <h2 style="text-align: center;">🧾 Fazer um Pedido</h2>
 
     <form method="POST" id="formPedido">
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <input type="text" name="cliente" id="cliente" placeholder="Nome do Cliente" required style="flex: 1; min-width: 200px;">
-            <input type="date" name="data" id="data" required style="min-width: 150px;">
+        <div class="card" style="max-width: 600px; margin: 30px auto;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 200px;">
+                    <label style="display: block; margin-bottom: 8px; color: #10b981; font-weight: 600;">👤 Cliente</label>
+                    <input type="text" name="cliente" id="cliente" placeholder="Nome do cliente" required>
+                </div>
+                <div style="flex: 1; min-width: 150px;">
+                    <label style="display: block; margin-bottom: 8px; color: #10b981; font-weight: 600;">📅 Data</label>
+                    <input type="date" name="data" id="data" required>
+                </div>
+            </div>
         </div>
 
         <hr>
 
         <!-- BOTÃO FILTRO -->
-        <button type="button" class="btn" onclick="toggleFiltro()">
-            📋 Selecionar Produtos
-        </button>
+        <div style="text-align: center; margin: 30px 0;">
+            <button type="button" class="btn btn-grande" onclick="toggleFiltro()">
+                📋 Selecionar Produtos
+            </button>
+        </div>
 
         <!-- FILTRO DE PRODUTOS -->
-        <div id="filtro" style="display:none; margin-top:20px; background: rgba(255, 255, 255, 0.08); padding: 20px; border-radius: 12px; backdrop-filter: blur(10px);">
-            <label style="display: block; margin-bottom: 10px; font-weight: 600;">Escolha os produtos:</label>
-            <select id="listaProdutos" multiple size="6" style="width: 100%;">
-                {% for p in produtos|sort %}
-                    <option value="{{ p }}">{{ p }}</option>
-                {% endfor %}
-            </select>
+        <div id="filtro" style="display:none; max-width: 700px; margin: 30px auto;">
+            <div style="margin-bottom: 15px;">
+                <label style="display: block; margin-bottom: 12px; font-weight: 600; color: #10b981;">🛒 Escolha os produtos:</label>
+                <select id="listaProdutos" multiple size="7" style="width: 100%; padding: 12px;">
+                    {% for p in produtos|sort %}
+                        <option value="{{ p }}">{{ p }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-            <br><br>
-            <button type="button" class="btn btn-grande" onclick="adicionarProdutos()">
+            <button type="button" class="btn btn-grande" style="width: 100%;" onclick="adicionarProdutos()">
                 ✅ Adicionar Produtos Selecionados
             </button>
-            <p style="margin-top: 10px; opacity: 0.8;"><small>💡 Segure CTRL para selecionar vários produtos</small></p>
+            <p style="margin-top: 12px; opacity: 0.7; text-align: center;">
+                <small>💡 Segure <strong>CTRL</strong> (ou <strong>CMD</strong>) para selecionar vários produtos</small>
+            </p>
         </div>
 
         <hr>
 
         <!-- PRODUTOS SELECIONADOS -->
-        <div id="produtosSelecionados"></div>
+        <div id="produtosSelecionados" style="max-width: 900px; margin: 30px auto;"></div>
 
-        <div style="margin-top:20px; display:flex; gap:10px; flex-wrap: wrap;">
+        <div style="max-width: 900px; margin: 30px auto; display:flex; gap:10px; flex-wrap: wrap; justify-content: center;">
             <button type="submit" class="btn btn-grande">
                 📥 Gerar e Baixar Pedido
             </button>
 
-            <button type="button" class="btn btn-danger" onclick="limparPedido()">
+            <button type="button" class="btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);" onclick="limparPedido()">
                 🔄 Limpar Pedido
             </button>
         </div>
     </form>
 
-    <a class="btn-voltar" href="/">← Voltar</a>
+    <a class="btn-voltar" href="/">← Voltar ao Menu</a>
 </div>
 
 <script>
@@ -82,22 +96,34 @@ function adicionarProdutos() {
         div.id = "produto_" + produto;
 
         div.innerHTML = `
-            <strong style="font-size: 1.1rem; color: #2ecc71;">📦 ${produto}</strong><br>
-            <div style="margin-top: 15px; display: flex; gap: 15px; flex-wrap: wrap;">
-                <input type="number" name="qtd_${produto}" placeholder="Quantidade" required min="1" style="flex: 1; min-width: 150px;">
-                <select name="unidade_${produto}" style="flex: 1; min-width: 150px;">
-                    {% for u in unidades %}
-                        <option value="{{ u }}">{{ u }}</option>
-                    {% endfor %}
-                </select>
-                <input type="number" name="preco_${produto}" placeholder="Preço Unitário (R$)" step="0.01" style="flex: 1; min-width: 150px;">
-                <input type="number" name="valor_${produto}" placeholder="Valor Total (R$)" step="0.01" style="flex: 1; min-width: 150px;">
-                <button type="button" class="btn-danger" onclick="removerProduto('${produto}')">
-                    🗑️ Remover
-                </button>
+            <strong style="font-size: 1.2rem; color: #10b981; display: flex; align-items: center; gap: 8px; margin-bottom: 15px;">
+                <span>📦</span> ${produto}
+            </strong>
+            <div style="margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+                <div>
+                    <label style="display: block; margin-bottom: 6px; color: #fbbf24; font-size: 0.9rem;">Quantidade</label>
+                    <input type="number" name="qtd_${produto}" placeholder="Ex: 5" required min="1" step="0.01">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 6px; color: #fbbf24; font-size: 0.9rem;">Unidade</label>
+                    <select name="unidade_${produto}">
+                        {% for u in unidades %}
+                            <option value="{{ u }}">{{ u }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 6px; color: #fbbf24; font-size: 0.9rem;">Preço Unitário (R$)</label>
+                    <input type="number" name="preco_${produto}" placeholder="Ex: 10.50" step="0.01">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 6px; color: #fbbf24; font-size: 0.9rem;">Valor Total (R$)</label>
+                    <input type="number" name="valor_${produto}" placeholder="Ex: 52.50" step="0.01">
+                </div>
             </div>
-
-            <input type="hidden" name="produtos[]" value="${produto}">
+            <button type="button" class="btn-danger" style="margin-top: 12px; width: 100%;" onclick="removerProduto('${produto}')">
+                🗑️ Remover Produto
+            </button>
         `;
 
         container.appendChild(div);
@@ -110,19 +136,16 @@ function removerProduto(produto) {
 }
 
 function limparPedido() {
-    // Limpa cliente e data
-    document.getElementById("cliente").value = "";
-    document.getElementById("data").value = "";
-
-    // Remove todos os produtos selecionados
-    document.getElementById("produtosSelecionados").innerHTML = "";
-
-    // Limpa seleção do filtro
-    const select = document.getElementById("listaProdutos");
-    Array.from(select.options).forEach(option => option.selected = false);
-    
-    // Fecha o filtro
-    document.getElementById("filtro").style.display = "none";
+    if (confirm("⚠️ Tem certeza que deseja limpar todos os dados do pedido?")) {
+        document.getElementById("cliente").value = "";
+        document.getElementById("data").value = "";
+        document.getElementById("produtosSelecionados").innerHTML = "";
+        
+        const select = document.getElementById("listaProdutos");
+        Array.from(select.options).forEach(option => option.selected = false);
+        
+        document.getElementById("filtro").style.display = "none";
+    }
 }
 </script>
 </body>

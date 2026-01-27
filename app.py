@@ -69,168 +69,182 @@ def pedido():
         data = request.form["data"]
 
         itens = []
-        for p in produtos:
-            qtd = request.form.get(f"qtd_{p}")
-            unidade = request.form.get(f"unidade_{p}")
-            preco = request.form.get(f"preco_{p}", "0")
-            valor = request.form.get(f"valor_{p}", "0")
+        
+        # Pega TODOS os produtos que foram preenchidos dinamicamente
+        # Iterando pelos nomes dos inputs que começam com "qtd_"
+        for key in request.form.keys():
+            if key.startswith("qtd_"):
+                # Extrai o nome do produto do key
+                produto = key.replace("qtd_", "")
+                qtd = request.form.get(f"qtd_{produto}")
+                
+                # Só adiciona se houver quantidade preenchida
+                if qtd and qtd.strip():
+                    unidade = request.form.get(f"unidade_{produto}", "")
+                    preco = request.form.get(f"preco_{produto}", "0")
+                    valor = request.form.get(f"valor_{produto}", "0")
+                    
+                    itens.append({
+                        "produto": produto,
+                        "quantidade": qtd,
+                        "unidade": unidade,
+                        "preco": preco,
+                        "valor": valor
+                    })
 
-            if qtd:
-                itens.append({
-                    "produto": p,
-                    "quantidade": qtd,
-                    "unidade": unidade,
-                    "preco": preco,
-                    "valor": valor
-                })
-
-        gerar_pdf(cliente, data, itens)
-        return send_file("pedido.pdf", as_attachment=True)
+        if itens:  # Só gera PDF se houver itens
+            gerar_pdf(cliente, data, itens)
+            return send_file("pedido.pdf", as_attachment=True)
+        else:
+            return redirect("/pedido")
 
     return render_template("pedido.html", produtos=produtos, unidades=unidades)
 
 # ---------- GERAR PDF ----------
 def gerar_pdf(cliente, data, itens):
-    # Tamanho customizado: 80mm altura x 40mm largura (recibo vertical)
     largura = 40 * mm
     altura = 80 * mm
     
     c = canvas.Canvas("pedido.pdf", pagesize=(largura, altura))
     
-    # Margens ajustadas para o espaço compacto
     margem = 1.5 * mm
-    col_width = (largura - margem * 2) / 5  # Dividir em 5 colunas
+    col_width = (largura - margem * 2) / 5
     
-    # Adicionar logo no topo (redimensionado para caber)
     logo_path = "static/logo.png"
-    if os.path.exists(logo_path):
-        try:
-            c.drawImage(logo_path, margem, altura - 10 * mm, width=37 * mm, height=12 * mm, preserveAspectRatio=True)
-        except:
-            pass  # Se falhar, continua sem logo
-
-    y = altura - 8 * mm
-
-    # Linha de separação após logo
-    c.setLineWidth(0.5)
-    c.line(margem, y, largura - margem, y)
-    y -= 2.5 * mm
-
-    # Título centralizado
-    c.setFont("Helvetica-Bold", 8)
-    c.drawCentredString(largura / 2, y, "PEDIDO")
-    y -= 2.5 * mm
-
-    # Informações do cliente e data
-    c.setFont("Helvetica", 4.5)
-    cliente_display = cliente[:18] if len(cliente) <= 18 else cliente[:15] + "..."
-    c.drawString(margem, y, f"Cliente : {cliente_display}")
-    
-    data_formatted = data.split("-")
-    if len(data_formatted) == 3:
-        data_display = f"{data_formatted[2]}/{data_formatted[1]}/{data_formatted[0]}"
-    else:
-        data_display = data
-    
-    c.drawRightString(largura - margem, y, f"Data: {data_display}")
-    y -= 1.8 * mm
-    
-    # Linha separadora
-    c.setLineWidth(0.4)
-    c.line(margem, y, largura - margem, y)
-    y -= 1.5 * mm
-    
-    # Cabeçalho da tabela
-    c.setFont("Helvetica-Bold", 3.2)
-    c.drawString(margem, y, "Produtos.")
-    c.drawString(margem + col_width * 1.3, y, "Qtd")
-    c.drawString(margem + col_width * 1.9, y, "Und")
-    c.drawString(margem + col_width * 2.4, y, "Unitário")
-    c.drawString(margem + col_width * 3.2, y, "Valor")
-    
-    y -= 1.5 * mm
-    c.line(margem, y, largura - margem, y)
-    y -= 1.3 * mm
-    
-    # Itens
-    c.setFont("Helvetica", 3)
-    max_items = 4  # Aumentado para 4 itens
-    valor_total = 0
+    valor_total_geral = 0
     line_height = 1.4 * mm
+    item_index = 0
+    primeira_pagina = True
     
-    for i, item in enumerate(itens[:max_items]):
-        if y < margem + 2 * mm:
-            # Nova página se necessário
+    while item_index < len(itens):
+        if not primeira_pagina:
             c.showPage()
-            y = altura - margem
         
-        # Nome do produto (nome completo)
-        produto = item["produto"]
-        c.drawString(margem, y, produto)
+        primeira_pagina = False
+        y = altura - margem
+        valor_total_pagina = 0
         
-        # Quantidade, unidade, preço e valor
-        qtd_text = str(item["quantidade"])[:3]
-        un_text = str(item["unidade"])
-        preco_text = str(item["preco"])[:4]
-        
-        # Formatar valor com 2 casas decimais e R$
-        try:
-            valor_num = float(item["valor"]) if item["valor"] else 0
-            valor_text = f"R$ {valor_num:.2f}".replace(".", ",")
-        except:
-            valor_text = "R$ 0,00"
-        
-        c.drawString(margem + col_width * 1.3, y, qtd_text)
-        c.drawString(margem + col_width * 1.9, y, un_text)
-        c.drawString(margem + col_width * 2.4, y, preco_text)
-        c.drawRightString(largura - margem, y, valor_text)
-        
-        # Somar valor total
-        try:
-            valor_total += float(item["valor"]) if item["valor"] else 0
-        except:
-            pass
-        
-        y -= line_height
+        # Adicionar logo no topo
+        if os.path.exists(logo_path):
+            try:
+                c.drawImage(logo_path, margem, y - 10 * mm, width=37 * mm, height=12 * mm, preserveAspectRatio=True)
+            except:
+                pass
 
-    # Linha separadora final
-    c.setLineWidth(0.4)
-    c.line(margem, y, largura - margem, y)
-    y -= 1.3 * mm
-    
-    # Valor total (destacado)
-    c.setFont("Helvetica-Bold", 3.5)
-    valor_total_text = f"Total: R$ {valor_total:.2f}".replace(".", ",")
-    c.drawRightString(largura - margem, y, valor_total_text)
-    y -= 1.5 * mm
-    
-    # Informações de contato (compactas)
-    c.setFont("Helvetica-Bold", 2.5)
-    c.drawString(margem, y, "Contato:")
-    y -= 0.95 * mm
-    
-    c.setFont("Helvetica", 2.2)
-    c.drawString(margem, y, "(62)3522-9433 / (62)98101-0670 / (62)99978-9984")
-    y -= 0.95 * mm
-    
-    # Endereço (compacto)
-    c.setFont("Helvetica-Bold", 2.5)
-    c.drawString(margem, y, "Endereço:")
-    y -= 0.95 * mm
-    
-    c.setFont("Helvetica", 2)
-    c.drawString(margem, y, "Rod BR-153 Km 5,5-GP. 03 BOX 07 - CEASA")
-    y -= 0.8 * mm
-    c.drawString(margem, y, "Jd. Guanabara - Goiania - GO")
-    y -= 1 * mm
-    
-    # Seção de assinatura (no final de tudo)
-    c.setFont("Helvetica-Bold", 2.5)
-    c.drawString(margem, y, "Assinatura:")
-    y -= 0.9 * mm
-    # Linha para assinatura
-    c.setLineWidth(0.3)
-    c.line(margem + 3 * mm, y, largura - margem, y)
+        y = altura - 8 * mm
+
+        c.setLineWidth(0.5)
+        c.line(margem, y, largura - margem, y)
+        y -= 2.5 * mm
+
+        c.setFont("Helvetica-Bold", 8)
+        c.drawCentredString(largura / 2, y, "PEDIDO")
+        y -= 2.5 * mm
+
+        c.setFont("Helvetica", 4.5)
+        cliente_display = cliente[:18] if len(cliente) <= 18 else cliente[:15] + "..."
+        c.drawString(margem, y, f"Cliente : {cliente_display}")
+        
+        data_formatted = data.split("-")
+        if len(data_formatted) == 3:
+            data_display = f"{data_formatted[2]}/{data_formatted[1]}/{data_formatted[0]}"
+        else:
+            data_display = data
+        
+        c.drawRightString(largura - margem, y, f"Data: {data_display}")
+        y -= 1.8 * mm
+        
+        c.setLineWidth(0.4)
+        c.line(margem, y, largura - margem, y)
+        y -= 1.5 * mm
+        
+        c.setFont("Helvetica-Bold", 3.2)
+        c.drawString(margem, y, "Produtos.")
+        c.drawString(margem + col_width * 1.3, y, "Qtd")
+        c.drawString(margem + col_width * 1.9, y, "Und")
+        c.drawString(margem + col_width * 2.4, y, "Unitário")
+        c.drawString(margem + col_width * 3.2, y, "Valor")
+        
+        y -= 1.5 * mm
+        c.line(margem, y, largura - margem, y)
+        y -= 1.3 * mm
+        
+        c.setFont("Helvetica", 3)
+        
+        # Adicionar itens
+        while item_index < len(itens):
+            item = itens[item_index]
+            
+            # Espaço reservado para rodapé (total, contato, endereço, assinatura)
+            espaco_minimo = 18 * mm
+            if y < margem + espaco_minimo:
+                break
+            
+            produto = item["produto"]
+            c.drawString(margem, y, produto)
+            
+            qtd_text = str(item["quantidade"])[:3]
+            un_text = str(item["unidade"])
+            preco_text = str(item["preco"])[:4]
+            
+            try:
+                valor_num = float(item["valor"]) if item["valor"] else 0
+                valor_text = f"R$ {valor_num:.2f}".replace(".", ",")
+            except:
+                valor_text = "R$ 0,00"
+            
+            c.drawString(margem + col_width * 1.3, y, qtd_text)
+            c.drawString(margem + col_width * 1.9, y, un_text)
+            c.drawString(margem + col_width * 2.4, y, preco_text)
+            c.drawRightString(largura - margem, y, valor_text)
+            
+            try:
+                valor_num = float(item["valor"]) if item["valor"] else 0
+                valor_total_pagina += valor_num
+                valor_total_geral += valor_num
+            except:
+                pass
+            
+            y -= line_height
+            item_index += 1
+        
+        # Linha separadora final
+        c.setLineWidth(0.4)
+        c.line(margem, y, largura - margem, y)
+        y -= 1.3 * mm
+        
+        # Valor total DA PÁGINA
+        c.setFont("Helvetica-Bold", 3.5)
+        valor_total_text = f"Total: R$ {valor_total_pagina:.2f}".replace(".", ",")
+        c.drawRightString(largura - margem, y, valor_total_text)
+        y -= 1.5 * mm
+        
+        # Informações de contato
+        c.setFont("Helvetica-Bold", 2.5)
+        c.drawString(margem, y, "Contato:")
+        y -= 0.95 * mm
+        
+        c.setFont("Helvetica", 2.2)
+        c.drawString(margem, y, "(62)3522-9433 / (62)98101-0670 / (62)99978-9984")
+        y -= 0.95 * mm
+        
+        # Endereço
+        c.setFont("Helvetica-Bold", 2.5)
+        c.drawString(margem, y, "Endereço:")
+        y -= 0.95 * mm
+        
+        c.setFont("Helvetica", 2)
+        c.drawString(margem, y, "Rod BR-153 Km 5,5-GP. 03 BOX 07 - CEASA")
+        y -= 0.8 * mm
+        c.drawString(margem, y, "Jd. Guanabara - Goiania - GO")
+        y -= 1 * mm
+        
+        # Assinatura
+        c.setFont("Helvetica-Bold", 2.5)
+        c.drawString(margem, y, "Assinatura:")
+        y -= 0.9 * mm
+        c.setLineWidth(0.3)
+        c.line(margem + 3 * mm, y, largura - margem, y)
 
     c.save()
 

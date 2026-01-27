@@ -8,34 +8,41 @@
 </head>
 <body>
 <div class="container">
-    <div style="text-align: center; margin-bottom: 25px;">
-        <img src="/static/logo.png" alt="Logo ATIVA" style="max-height: 80px; width: auto; object-fit: contain;">
+    <div class="logo-container">
+        <img src="/static/logo.png" alt="Logo ATIVA">
     </div>
-    <h2>⚖️ Cadastro de Unidades</h2>
+    
+    <h2 style="text-align: center;">⚖️ Cadastro de Unidades</h2>
 
-    <form method="POST">
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <input type="text" name="unidade" placeholder="Nova unidade" required style="flex: 1; min-width: 200px;">
-            <button type="submit" class="btn">✅ Adicionar Unidade</button>
-        </div>
-    </form>
+    <div class="card" style="max-width: 500px; margin: 30px auto;">
+        <form method="POST">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" name="unidade" placeholder="Nova unidade (kg, L, un, etc)" required style="flex: 1; min-width: 200px;">
+                <button type="submit" class="btn" style="white-space: nowrap;">✅ Adicionar</button>
+            </div>
+        </form>
+    </div>
 
     {% if unidades %}
-        <h3 style="color: #2ecc71; margin-top: 30px; margin-bottom: 15px;">Unidades Cadastradas ({{ unidades|length }})</h3>
-        <ul>
-            {% for u in unidades %}
+        <h3 style="text-align: center; margin-top: 50px;">📏 Unidades Cadastradas <span style="color: #fbbf24;">({{ unidades|length }})</span></h3>
+        <div style="max-width: 700px; margin: 30px auto;">
+            <ul>
+                {% for u in unidades %}
                 <li>
-                    <span>{{ u }}</span>
+                    <span>📊 {{ u }}</span>
                 </li>
-            {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
     {% else %}
-        <div class="card" style="text-align: center; margin-top: 40px;">
-            <p style="opacity: 0.8;">Nenhuma unidade cadastrada ainda.</p>
+        <div class="card" style="text-align: center; margin-top: 60px; max-width: 500px; margin-left: auto; margin-right: auto;">
+            <p style="font-size: 3rem; margin-bottom: 15px;">⚖️</p>
+            <p style="opacity: 0.8; font-size: 1.1rem;">Nenhuma unidade cadastrada ainda.</p>
+            <p style="opacity: 0.6; margin-top: 10px;">Adicione unidades de medida para seus produtos!</p>
         </div>
     {% endif %}
 
-    <a class="btn-voltar" href="/">← Voltar</a>
+    <a class="btn-voltar" href="/">← Voltar ao Menu</a>
 </div>
 </body>
 </html>
