@@ -3,47 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATIVA - Sistema de Pedidos</title>
+    <title>ATIVA - Distribuidora de Frutas e Verduras</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+<!-- BOTÃO WHATSAPP FLUTUANTE -->
+<a href="https://wa.me/5562999789984" target="_blank" class="whatsapp-flutuante" title="Fale conosco no WhatsApp">
+    <img src="/static/Whatsap.png" alt="WhatsApp" style="height: 40px; width: auto;">
+    <span class="whatsapp-label">Entrar em<br>Contato</span>
+</a>
+
 <div class="container">
     <div class="logo-container">
         <img src="/static/logo.png" alt="Logo ATIVA">
     </div>
     
     <h1 style="text-align: center; font-size: 2.8rem;">
-        📦 Sistema de Pedidos
+        🥬 ATIVA Distribuidora
     </h1>
     
     <p style="text-align: center; font-size: 1.1rem; margin-bottom: 50px; opacity: 0.9;">
-        Gerenciamento profissional de pedidos para <span style="color: #10b981; font-weight: 600;">ATIVA Distribuidora</span>
+        Qualidade e frescor em <span style="color: #10b981; font-weight: 600;">frutas, verduras e alimentos premium</span>
     </p>
 
-    <div class="menu">
-        <a class="btn" href="/produtos">
-            <span style="font-size: 1.5rem;">🌿</span>
-            <span>Produtos</span>
-        </a>
-        <a class="btn" href="/unidades">
-            <span style="font-size: 1.5rem;">⚖️</span>
-            <span>Unidades</span>
-        </a>
-        <a class="btn" href="/pedido">
-            <span style="font-size: 1.5rem;">🧾</span>
-            <span>Novo Pedido</span>
-        </a>
+    <!-- SEÇÃO QUEM SOMOS -->
+    <div class="card" style="margin-top: 80px; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <h2 style="text-align: center; margin-bottom: 30px;">🥬 Quem Somos?</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;">
+            <div>
+                <p style="font-size: 1.05rem; line-height: 2; margin-bottom: 20px;">
+                    A <span style="color: #10b981; font-weight: 700;">ATIVA Distribuidora</span> é uma empresa especializada na distribuição de produtos frescos e de alta qualidade. Com 25 anos de experiência no mercado, nos comprometemos em fornecer:
+                </p>
+                
+                <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                    <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #fbbf24;">🥬</span>
+                        <strong>Verduras Frescas:</strong> Alfaces, couve, espinafre e muito mais
+                    </li>
+                    <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #fbbf24;">🍎</span>
+                        <strong>Frutas Premium:</strong> Maçãs, laranjas, bananas, melões e variedades sazonais
+                    </li>
+                    <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #fbbf24;">🥕</span>
+                        <strong>Alimentos Diversos:</strong> Hortaliças, tubérculos e produtos de qualidade
+                    </li>
+                    <li style="margin: 10px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: #fbbf24;">✅</span>
+                        <strong>Garantia de Qualidade:</strong> Produtos selecionados e frescos
+                    </li>
+                </ul>
+
+                <p style="margin-top: 25px; opacity: 0.85; font-size: 0.95rem;">
+                    Somos o parceiro confiável de restaurantes, supermercados, feiras e distribuidoras em toda a região. Nossa missão é levar saúde e qualidade à sua mesa!
+                </p>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 25px; border-radius: 12px; border-left: 4px solid #10b981;">
+                <h3 style="color: #fbbf24; margin-top: 0; font-size: 1.3rem;">📍 Localização</h3>
+                
+                <div style="margin-top: 20px;">
+                    <p style="opacity: 0.8; font-size: 0.9rem; margin-bottom: 15px;">
+                        <span style="color: #10b981; font-weight: 700;">Endereço:</span>
+                    </p>
+                    <p style="font-size: 1rem; line-height: 1.8; margin: 0;">
+                        Rod BR-153 Km 5,5 - GP 03 BOX 07<br>
+                        CEASA - Jd. Guanabara<br>
+                        Goiânia - GO
+                    </p>
+                </div>
+
+                <hr style="margin: 20px 0; opacity: 0.3;">
+
+                <div>
+                    <p style="opacity: 0.8; font-size: 0.9rem; margin-bottom: 10px;">
+                        <span style="color: #10b981; font-weight: 700;">📞 Contatos:</span>
+                    </p>
+                    <p style="font-size: 0.95rem; line-height: 1.8; margin: 0;">
+                        (62) 99978-9984<br>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="card welcome-card" style="margin-top: 60px;">
-        <h3>🎯 Bem-vindo ao Sistema</h3>
-        <p style="opacity: 0.9; line-height: 1.8;">
-            Gerencie seus produtos, defina unidades de medida e crie pedidos de forma rápida e eficiente. 
-            Todo o sistema foi desenvolvido para facilitar suas operações diárias.
-        </p>
-        <div style="margin-top: 30px; opacity: 0.7; font-size: 0.9rem;">
-            <p>🌱 Cultive o sucesso do seu negócio</p>
+    <!-- SEÇÃO NÚMEROS QUE IMPRESSIONAM -->
+    <div style="margin-top: 80px; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <h2 style="text-align: center; margin-bottom: 50px; color: #fbbf24;">📊 Números que Impressionam</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
+            <!-- Card 1 -->
+            <div style="background: rgba(16, 185, 129, 0.15); padding: 35px 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.3); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; margin-bottom: 15px;">✅</div>
+                <div style="font-size: 2.8rem; color: #10b981; font-weight: 700; margin-bottom: 10px;">25</div>
+                <div style="font-size: 1.1rem; color: #fbbf24; font-weight: 600;">Anos de Experiência</div>
+                <p style="margin-top: 10px; opacity: 0.8; font-size: 0.95rem;">Tradição e confiabilidade no mercado</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div style="background: rgba(251, 191, 36, 0.15); padding: 35px 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(251, 191, 36, 0.3); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(251, 191, 36, 0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🤝</div>
+                <div style="font-size: 2.8rem; color: #fbbf24; font-weight: 700; margin-bottom: 10px;">100+</div>
+                <div style="font-size: 1.1rem; color: #10b981; font-weight: 600;">Clientes Ativos</div>
+                <p style="margin-top: 10px; opacity: 0.8; font-size: 0.95rem;">Parceiros que confiam em nós</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div style="background: rgba(239, 68, 68, 0.15); padding: 35px 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(239, 68, 68, 0.3); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(239, 68, 68, 0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; margin-bottom: 15px;">📦</div>
+                <div style="font-size: 2.8rem; color: #ef4444; font-weight: 700; margin-bottom: 10px;">1 mil</div>
+                <div style="font-size: 1.1rem; color: #fbbf24; font-weight: 600;">Pedidos por Mês</div>
+                <p style="margin-top: 10px; opacity: 0.8; font-size: 0.95rem;">Eficiência em alta escala</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div style="background: rgba(16, 185, 129, 0.15); padding: 35px 25px; border-radius: 12px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.3); transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🌍</div>
+                <div style="font-size: 2.8rem; color: #10b981; font-weight: 700; margin-bottom: 10px;">Goiânia</div>
+                <div style="font-size: 1.1rem; color: #fbbf24; font-weight: 600;">Cobertura Total</div>
+                <p style="margin-top: 10px; opacity: 0.8; font-size: 0.95rem;">Cobrimos toda a região</p>
+            </div>
         </div>
+    </div>
+
+    <!-- SEÇÃO HORÁRIO DE FUNCIONAMENTO -->
+    <div style="margin-top: 80px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        <div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(251, 191, 36, 0.15) 100%); border: 1px solid rgba(16, 185, 129, 0.4);">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #fbbf24;">🕐 Horário de Funcionamento</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; padding: 20px 0;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; margin-bottom: 10px;">📅</div>
+                    <p style="font-size: 1rem; color: #10b981; font-weight: 600; margin: 0;">Segunda a Sexta</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; color: #fbbf24; font-weight: 700;">5h - 16h</div>
+                    <p style="opacity: 0.8; font-size: 0.9rem; margin: 10px 0 0 0;">Das 5 da manhã até 4 da tarde</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(16, 185, 129, 0.2);">
+                <p style="color: #ef4444; font-weight: 600; margin: 0;">Sábados, Domingos e Feriados: FECHADO</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO REGIÕES ATENDIDAS -->
+    <div style="margin-top: 80px; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <h2 style="text-align: center; margin-bottom: 50px; color: #fbbf24;">🗺️ Regiões Atendidas</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+            <!-- Card Goiânia -->
+            <div style="background: rgba(16, 185, 129, 0.2); padding: 30px 25px; border-radius: 12px; border: 2px solid #10b981; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(16, 185, 129, 0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <img src="/static/bandeira-goiania.png" alt="Bandeira de Goiânia" style="height: 80px; width: auto;">
+                </div>
+                <h3 style="text-align: center; color: #10b981; margin: 15px 0 10px 0; font-size: 1.4rem;">Goiânia</h3>
+                <p style="text-align: center; opacity: 0.8; line-height: 1.6; margin: 0;">
+                    Cobertura <strong>100% da cidade</strong><br>
+                    <span style="color: #fbbf24; font-weight: 600;">Entrega em 24h</span>
+                </p>
+            </div>
+
+            <!-- Card Aparecida de Goiânia -->
+            <div style="background: rgba(251, 191, 36, 0.2); padding: 30px 25px; border-radius: 12px; border: 2px solid #fbbf24; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(251, 191, 36, 0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <img src="/static/bandeira-aparecida.png" alt="Bandeira de Aparecida de Goiânia" style="height: 80px; width: auto;">
+                </div>
+                <h3 style="text-align: center; color: #fbbf24; margin: 15px 0 10px 0; font-size: 1.4rem;">Aparecida de Goiânia</h3>
+                <p style="text-align: center; opacity: 0.8; line-height: 1.6; margin: 0;">
+                    Cobertura <strong>completa</strong><br>
+                    <span style="color: #10b981; font-weight: 600;">Entrega em 24h</span>
+                </p>
+            </div>
+
+            <!-- Card Senador Canedo -->
+            <div style="background: rgba(239, 68, 68, 0.15); padding: 30px 25px; border-radius: 12px; border: 2px solid #ef4444; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(239, 68, 68, 0.25)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <img src="/static/bandeira-senador.png" alt="Bandeira de Senador Canedo" style="height: 80px; width: auto;">
+                </div>
+                <h3 style="text-align: center; color: #ef4444; margin: 15px 0 10px 0; font-size: 1.4rem;">Senador Canedo</h3>
+                <p style="text-align: center; opacity: 0.8; line-height: 1.6; margin: 0;">
+                    Cobertura <strong>total</strong><br>
+                    <span style="color: #fbbf24; font-weight: 600;">Entrega em 24h</span>
+                </p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 25px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; border-left: 4px solid #10b981;">
+            <p style="margin: 0; color: #10b981; font-weight: 600;">📍 Próximas expansões em andamento</p>
+            <p style="margin: 8px 0 0 0; opacity: 0.8; font-size: 0.95rem;">Entramos em contato para novas regiões atendidas</p>
+        </div>
+    </div>
+
+    <!-- SEÇÃO PRODUTOS EM DESTAQUE -->
+    <div style="margin-top: 80px; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <h2 style="text-align: center; margin-bottom: 50px; color: #fbbf24;">🥕 Produtos em Destaque</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+            <!-- Card Tomate -->
+            <div style="background: rgba(239, 68, 68, 0.15); padding: 25px; border-radius: 12px; border: 2px solid #ef4444; transition: all 0.3s ease; text-align: center;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(239, 68, 68, 0.25)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="background: rgba(239, 68, 68, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 15px; height: 120px; display: flex; align-items: center; justify-content: center;">
+                    <img src="/static/tomate.png" alt="Tomate" style="max-height: 100%; max-width: 100%;">
+                </div>
+                <h3 style="color: #ef4444; margin: 15px 0 10px 0; font-size: 1.3rem;">Tomate</h3>
+                <p style="opacity: 0.8; line-height: 1.6; margin: 0 0 15px 0;">
+                    Tomates frescos e saborosos, perfeitos para saladas e molhos. Colhidos no pico da maturação.
+                </p>
+                <a href="/sistema" style="display: inline-block; padding: 8px 20px; background: #ef4444; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">Ver no Sistema</a>
+            </div>
+
+            <!-- Card Cebola -->
+            <div style="background: rgba(251, 191, 36, 0.15); padding: 25px; border-radius: 12px; border: 2px solid #fbbf24; transition: all 0.3s ease; text-align: center;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(251, 191, 36, 0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="background: rgba(251, 191, 36, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 15px; height: 120px; display: flex; align-items: center; justify-content: center;">
+                    <img src="/static/cebola.png" alt="Cebola" style="max-height: 100%; max-width: 100%;">
+                </div>
+                <h3 style="color: #fbbf24; margin: 15px 0 10px 0; font-size: 1.3rem;">Cebola</h3>
+                <p style="opacity: 0.8; line-height: 1.6; margin: 0 0 15px 0;">
+                    Cebolas selecionadas, bem conservadas e com excelente qualidade. Ideal para qualquer receita.
+                </p>
+                <a href="/sistema" style="display: inline-block; padding: 8px 20px; background: #fbbf24; color: #0f1419; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">Ver no Sistema</a>
+            </div>
+
+            <!-- Card Batata -->
+            <div style="background: rgba(16, 185, 129, 0.15); padding: 25px; border-radius: 12px; border: 2px solid #10b981; transition: all 0.3s ease; text-align: center;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 15px 40px rgba(16, 185, 129, 0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                <div style="background: rgba(16, 185, 129, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 15px; height: 120px; display: flex; align-items: center; justify-content: center;">
+                    <img src="/static/batata.png" alt="Batata" style="max-height: 100%; max-width: 100%;">
+                </div>
+                <h3 style="color: #10b981; margin: 15px 0 10px 0; font-size: 1.3rem;">Batata</h3>
+                <p style="opacity: 0.8; line-height: 1.6; margin: 0 0 15px 0;">
+                    Batatas de primeira qualidade, lisas e sem defeitos. Perfeitas para frituras e receitas diversas.
+                </p>
+                <a href="/sistema" style="display: inline-block; padding: 8px 20px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">Ver no Sistema</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÃO PARA VER TODOS OS PRODUTOS -->
+    <div style="text-align: center; margin-top: 80px; margin-bottom: 40px;">
+        <button onclick="abrirModalProdutos()" style="padding: 12px 30px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+            <span style="font-size: 1.3rem;">📦</span>
+            <span>Ver Todos os Produtos</span>
+        </button>
+    </div>
+
+    <!-- MODAL DE PRODUTOS -->
+    <div id="modalProdutos" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1000; overflow-y: auto;">
+        <div style="background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%); margin: 20px auto; padding: 30px; border-radius: 15px; max-width: 900px; position: relative; margin-top: 40px; margin-bottom: 40px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);">
+            <!-- Botão Fechar -->
+            <button onclick="fecharModalProdutos()" style="position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.5rem; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                ✕
+            </button>
+
+            <h2 style="text-align: center; color: #fbbf24; margin-bottom: 30px; margin-top: 0;">📦 Todos os Produtos</h2>
+            
+            {% if produtos %}
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 20px;">
+                    {% for produto in produtos %}
+                        <div style="background: rgba(16, 185, 129, 0.15); padding: 20px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.4); transition: all 0.3s ease; text-align: center;" onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 10px 30px rgba(16, 185, 129, 0.2)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='none'">
+                            <h4 style="color: #10b981; margin: 0; font-size: 1rem; word-break: break-word;">{{ produto }}</h4>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: 40px 20px;">
+                    <p style="color: #ef4444; font-weight: 600; margin: 0;">Nenhum produto cadastrado ainda</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function abrirModalProdutos() {
+            document.getElementById('modalProdutos').style.display = 'block';
+        }
+
+        function fecharModalProdutos() {
+            document.getElementById('modalProdutos').style.display = 'none';
+        }
+
+        // Fechar modal ao clicar fora dele
+        window.onclick = function(event) {
+            var modal = document.getElementById('modalProdutos');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+
+    <!-- BOTÃO PARA ACESSAR O SISTEMA -->
+    <div style="text-align: center; margin-top: 60px; margin-bottom: 40px;">
+        <a href="/sistema" class="btn btn-grande" style="font-size: 1.2rem;">
+            <span style="font-size: 1.5rem;">🧾</span>
+            <span>Acessar Sistema de Pedidos</span>
+        </a>
     </div>
 </div>
 </body>

@@ -22,7 +22,12 @@ def salvar_json(arquivo, dados):
 # ---------- ROTAS ----------
 @app.route("/")
 def index():
-    return render_template("index.html")
+    produtos = carregar_json("produtos.json")
+    return render_template("index.html", produtos=produtos)
+
+@app.route("/sistema")
+def sistema():
+    return render_template("sistema.html")
 
 # PRODUTOS
 @app.route("/produtos", methods=["GET", "POST"])
@@ -44,6 +49,14 @@ def remover_produto(nome):
         produtos.remove(nome)
         salvar_json("produtos.json", produtos)
     return redirect("/produtos")
+
+@app.route("/remover_unidade/<nome>")
+def remover_unidade(nome):
+    unidades = carregar_json("unidades.json")
+    if nome in unidades:
+        unidades.remove(nome)
+        salvar_json("unidades.json", unidades)
+    return redirect("/unidades")
 
 # UNIDADES
 @app.route("/unidades", methods=["GET", "POST"])
@@ -110,9 +123,9 @@ def gerar_pdf(cliente, data, itens):
     margem = 1.5 * mm
     col_width = (largura - margem * 2) / 5
     
-    logo_path = "static/logo.png"
+    logo_path = "static/logo_pdf.png"
     valor_total_geral = 0
-    line_height = 1.4 * mm
+    line_height = 1.0 * mm
     item_index = 0
     primeira_pagina = True
     
@@ -127,7 +140,7 @@ def gerar_pdf(cliente, data, itens):
         # Adicionar logo no topo
         if os.path.exists(logo_path):
             try:
-                c.drawImage(logo_path, margem, y - 10 * mm, width=37 * mm, height=12 * mm, preserveAspectRatio=True)
+                c.drawImage(logo_path, margem, y - 10 * mm, width=37 * mm, height=14 * mm, preserveAspectRatio=True)
             except:
                 pass
 

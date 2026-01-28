@@ -30,6 +30,7 @@
                 {% for u in unidades %}
                 <li>
                     <span>📊 {{ u }}</span>
+                    <a class="btn-danger" href="/remover_unidade/{{ u }}">🗑️ Remover</a>
                 </li>
                 {% endfor %}
             </ul>
