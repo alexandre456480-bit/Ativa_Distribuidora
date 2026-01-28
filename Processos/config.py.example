@@ -1,0 +1,18 @@
+# Configurações do Sistema de Registros
+
+## Credenciais de Admin
+ADMIN_PASSWORD = "admin123"  # MUDE ISSO PARA SUA SENHA
+
+## Configurações de Banco de Dados
+DATABASE_URL = "sqlite:///pedidos.db"
+
+## Configurações de Segurança
+SECRET_KEY = "sua_chave_secreta_aqui_2024"  # Use uma chave aleatória em produção
+
+## Configurações de PDF
+PDF_FILENAME = "pedido.pdf"
+
+## Configurações de Sessão
+SESSION_TIMEOUT_MINUTES = 30  # Tempo de expiração da sessão (em minutos)
+
+# Para mudar a senha, altere o valor acima e atualize no app.py também!

@@ -1,11 +1,37 @@
-from flask import Flask, render_template, request, redirect, send_file
+from flask import Flask, render_template, request, redirect, send_file, session
+from flask_sqlalchemy import SQLAlchemy
 import json
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import mm
 import os
+from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
+# Definir o caminho do banco de dados na raiz do projeto
+basedir = os.path.abspath(os.path.dirname(__file__))
+db_path = os.path.join(basedir, 'pedidos.db')
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
+app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui_2024'
+db = SQLAlchemy(app)
+
+# ---------- MODELO DE BANCO DE DADOS ----------
+class Pedido(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cliente = db.Column(db.String(100), nullable=False)
+    data = db.Column(db.String(10), nullable=False)
+    data_criacao = db.Column(db.DateTime, default=datetime.now)
+    itens = db.Column(db.JSON, nullable=False)  # JSON com os itens do pedido
+    valor_total = db.Column(db.Float, default=0)
+    
+    def __repr__(self):
+        return f'<Pedido {self.id} - {self.cliente}>'
+
+# Criar tabelas
+with app.app_context():
+    db.create_all()
 
 # ---------- FUNÇÕES ----------
 def carregar_json(arquivo):
@@ -31,6 +57,23 @@ def salvar_bloqueio(bloqueado):
     with open("bloqueio.json", "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4, ensure_ascii=False)
 
+# ---------- AUTENTICAÇÃO ----------
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        senha = request.form.get("senha")
+        # Senha padrão: "admin123" - MUDE ISSO PARA MAIOR SEGURANÇA
+        if senha == "@Sapatolandia1":
+            # Redireciona para o site de registros (porta 5001)
+            return redirect("http://localhost:5001/registros")
+        else:
+            return render_template("login.html", erro="Senha incorreta!")
+    return render_template("login.html")
+
+@app.route("/logout")
+def logout():
+    return redirect("/")
+
 # ---------- ROTAS ----------
 @app.route("/")
 def index():
@@ -42,7 +85,6 @@ def index():
 def sistema():
     return render_template("sistema.html")
 
-# BLOQUEIO/DESBLOQUEIO DO SISTEMA
 @app.route("/admin/bloquear-sistema")
 def bloquear_sistema():
     salvar_bloqueio(True)
@@ -106,6 +148,7 @@ def pedido():
         data = request.form["data"]
 
         itens = []
+        valor_total = 0
         
         # Pega TODOS os produtos que foram preenchidos dinamicamente
         # Iterando pelos nomes dos inputs que começam com "qtd_"
@@ -128,8 +171,24 @@ def pedido():
                         "preco": preco,
                         "valor": valor
                     })
+                    
+                    try:
+                        valor_total += float(valor) if valor else 0
+                    except:
+                        pass
 
         if itens:  # Só gera PDF se houver itens
+            # Salvar no banco de dados
+            novo_pedido = Pedido(
+                cliente=cliente,
+                data=data,
+                itens=itens,
+                valor_total=valor_total
+            )
+            db.session.add(novo_pedido)
+            db.session.commit()
+            
+            # Gerar PDF
             gerar_pdf(cliente, data, itens)
             return send_file("pedido.pdf", as_attachment=True)
         else:
