@@ -19,15 +19,39 @@ def salvar_json(arquivo, dados):
     with open(arquivo, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4, ensure_ascii=False)
 
+def carregar_bloqueio():
+    try:
+        with open("bloqueio.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return {"bloqueado": False}
+
+def salvar_bloqueio(bloqueado):
+    dados = {"bloqueado": bloqueado}
+    with open("bloqueio.json", "w", encoding="utf-8") as f:
+        json.dump(dados, f, indent=4, ensure_ascii=False)
+
 # ---------- ROTAS ----------
 @app.route("/")
 def index():
     produtos = carregar_json("produtos.json")
-    return render_template("index.html", produtos=produtos)
+    bloqueio = carregar_bloqueio()
+    return render_template("index.html", produtos=produtos, sistema_bloqueado=bloqueio["bloqueado"])
 
 @app.route("/sistema")
 def sistema():
     return render_template("sistema.html")
+
+# BLOQUEIO/DESBLOQUEIO DO SISTEMA
+@app.route("/admin/bloquear-sistema")
+def bloquear_sistema():
+    salvar_bloqueio(True)
+    return {"status": "Sistema bloqueado com sucesso"}
+
+@app.route("/admin/desbloquear-sistema")
+def desbloquear_sistema():
+    salvar_bloqueio(False)
+    return {"status": "Sistema desbloqueado com sucesso"}
 
 # PRODUTOS
 @app.route("/produtos", methods=["GET", "POST"])
