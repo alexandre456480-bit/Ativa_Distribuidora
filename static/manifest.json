@@ -15,17 +15,17 @@
       "purpose": "any"
     },
     {
-      "src": "/static/logo_distribuidora.png",
-      "sizes": "300x300",
-      "type": "image/png",
+      "src": "/static/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
       "purpose": "any maskable"
     }
   ],
   "screenshots": [
     {
-      "src": "/static/logo_distribuidora.png",
-      "sizes": "300x300",
-      "type": "image/png"
+      "src": "/static/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
     }
   ],
   "categories": ["food", "shopping"],
