@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Página Principal -->
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://ativa-distribuidora.onrender.com/static/logo_distribuidora.png</image:loc>
+            <image:title>Logo ATIVA Distribuidora</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Sistema de Pedidos -->
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/sistema</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Login -->
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/login</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Páginas de Cadastro (acessíveis) -->
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/produtos</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/unidades</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+</urlset>

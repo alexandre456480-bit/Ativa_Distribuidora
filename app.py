@@ -17,6 +17,28 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SECRET_KEY'] = 'sua_chave_secreta_aqui_2024'
 db = SQLAlchemy(app)
 
+# ---------- HEADERS PARA SEO E SEGURANÇA ----------
+@app.after_request
+def set_headers(response):
+    # Segurança
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Referrer-Policy'] = 'no-referrer-when-downgrade'
+    response.headers['Permissions-Policy'] = 'geolocation=(), microphone=(), camera=()'
+    
+    # Cache para arquivos estáticos
+    if response.content_type and ('text/html' in response.content_type or 
+                                   'application/json' in response.content_type):
+        response.headers['Cache-Control'] = 'public, max-age=3600'
+    elif response.content_type and ('image' in response.content_type or
+                                     'font' in response.content_type or
+                                     'css' in response.content_type or
+                                     'javascript' in response.content_type):
+        response.headers['Cache-Control'] = 'public, max-age=31536000'
+    
+    return response
+
 # ---------- MODELO DE BANCO DE DADOS ----------
 class Pedido(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -80,6 +102,76 @@ def index():
     produtos = carregar_json("produtos.json")
     bloqueio = carregar_bloqueio()
     return render_template("index.html", produtos=produtos, sistema_bloqueado=bloqueio["bloqueado"])
+
+# ---------- SEO ----------
+@app.route("/sitemap.xml")
+def sitemap():
+    sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://ativa-distribuidora.onrender.com/static/logo_distribuidora.png</image:loc>
+            <image:title>Logo ATIVA Distribuidora</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/sistema</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/login</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/produtos</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://ativa-distribuidora.onrender.com/unidades</loc>
+        <lastmod>2026-01-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>'''
+    return sitemap_content, 200, {'Content-Type': 'application/xml'}
+
+@app.route("/robots.txt")
+def robots():
+    robots_content = '''User-agent: *
+Allow: /
+Allow: /sistema
+Allow: /login
+Allow: /static/
+Allow: /sitemap.xml
+Allow: /robots.txt
+Disallow: /admin/
+Disallow: /api/
+Disallow: /*.pdf$
+Disallow: /temp/
+Disallow: /cache/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+Crawl-delay: 1
+Sitemap: https://ativa-distribuidora.onrender.com/sitemap.xml
+Request-rate: 1/1s
+'''
+    return robots_content, 200, {'Content-Type': 'text/plain'}
 
 @app.route("/sistema")
 def sistema():
