@@ -14,6 +14,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ATIVA Distribuidora">
+    <meta name="application-name" content="ATIVA Distribuidora">
+    <meta name="msapplication-TileColor" content="#10b981">
+    <meta name="msapplication-config" content="/static/browserconfig.xml">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="business.business">
@@ -38,9 +41,12 @@
     
     <title>ATIVA Distribuidora - Verduras, Hortaliças e Frutas Frescas no CEASA</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/logo_distribuidora.png">
+    <link rel="manifest" href="/static/manifest.json">
     <link rel="stylesheet" href="/static/style.css">
     
-    <!-- Schema.org Structured Data - LocalBusiness -->
+    <!-- Schema.org Structured Data - LocalBusiness with OpeningHoursSpecification and AggregateRating -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -60,20 +66,66 @@
       "email": "contato@ativadistribuidora.com.br",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "CEASA, Goiânia",
+        "streetAddress": "Rod BR-153 Km 5,5 - GP 03 BOX 07",
         "addressLocality": "Goiânia",
         "addressRegion": "GO",
         "postalCode": "74000-000",
         "addressCountry": "BR"
       },
-      "priceRange": "$$",
-      "areaServed": {
-        "@type": "City",
-        "name": "Goiânia"
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-15.8267",
+        "longitude": "-48.0516"
       },
-      "serviceArea": {
-        "@type": "City",
-        "name": "Goiânia"
+      "priceRange": "$$",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Goiânia"
+        },
+        {
+          "@type": "City",
+          "name": "Aparecida de Goiânia"
+        },
+        {
+          "@type": "City",
+          "name": "Senador Canedo"
+        }
+      ],
+      "serviceArea": [
+        {
+          "@type": "City",
+          "name": "Goiânia"
+        },
+        {
+          "@type": "City",
+          "name": "Aparecida de Goiânia"
+        },
+        {
+          "@type": "City",
+          "name": "Senador Canedo"
+        }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "05:00",
+          "closes": "16:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
       },
       "contactPoint": {
         "@type": "ContactPoint",
@@ -135,6 +187,186 @@
           "position": 2,
           "name": "Sistema de Pedidos",
           "item": "https://ativa-distribuidora.onrender.com/sistema"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Schema.org - Product Schema for Featured Products -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Alface Fresca Premium",
+        "description": "Alface verde fresca selecionada diretamente do CEASA. Produto de excelente qualidade para restaurantes e supermercados.",
+        "image": "https://ativa-distribuidora.onrender.com/static/logo_distribuidora.png",
+        "brand": {
+          "@type": "Brand",
+          "name": "ATIVA Distribuidora"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "BRL",
+          "offerCount": "1"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "45"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Verduras Variadas Cesta Premium",
+        "description": "Cesta com variedade de verduras frescas: alface, couve, espinafre e mais. Entrega rápida para sua loja.",
+        "image": "https://ativa-distribuidora.onrender.com/static/logo_distribuidora.png",
+        "brand": {
+          "@type": "Brand",
+          "name": "ATIVA Distribuidora"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "BRL",
+          "offerCount": "1"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "ratingCount": "38"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Frutas Frescas Selecionadas",
+        "description": "Frutas premium selecionadas: maçãs, laranjas, bananas, melões e frutas sazonais de primeira qualidade.",
+        "image": "https://ativa-distribuidora.onrender.com/static/logo_distribuidora.png",
+        "brand": {
+          "@type": "Brand",
+          "name": "ATIVA Distribuidora"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "BRL",
+          "offerCount": "1"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "52"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Hortaliças Frescas do Dia",
+        "description": "Hortaliças selecionadas diariamente no CEASA: tomates, abobrinhas, pimentões, cebola e mais. Frescor garantido.",
+        "image": "https://ativa-distribuidora.onrender.com/static/logo_distribuidora.png",
+        "brand": {
+          "@type": "Brand",
+          "name": "ATIVA Distribuidora"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "BRL",
+          "offerCount": "1"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "61"
+        }
+      }
+    ]
+    </script>
+    
+    <!-- Schema.org - FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Qual é o horário de funcionamento da ATIVA Distribuidora?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Funcionamos de segunda a sexta-feira das 5h às 16h. Oferecemos atendimento em 24h pelo WhatsApp para consultas e pedidos: (62) 99978-9984"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual é a localização da ATIVA Distribuidora?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Estamos localizados no CEASA - Rod BR-153 Km 5,5 - GP 03 BOX 07, Jd. Guanabara, Goiânia - GO. Somos uma distribuidora especializada em verduras, hortaliças e frutas frescas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quais são as áreas de atendimento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Atendemos com cobertura completa em Goiânia, Aparecida de Goiânia e Senador Canedo. Entrega garantida em 24h. Próximas expansões em andamento - entre em contato para saber se sua região será atendida."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual é o prazo de entrega dos produtos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Garantimos entrega em até 24h após o pedido. Contamos com frota própria e parceiros logísticos confiáveis para garantir a entrega rápida e segura de seus produtos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como faço um pedido na ATIVA Distribuidora?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Você pode fazer pedidos através do nosso sistema online, pelo WhatsApp (62) 99978-9984 ou entrar em contato diretamente. Oferecemos múltiplos canais de atendimento para sua comodidade."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Há quanto tempo a ATIVA Distribuidora atua no mercado?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Temos 25 anos de experiência no mercado de distribuição de alimentos. Somos uma empresa estabelecida com grande confiabilidade e experiência no CEASA de Goiânia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quais produtos a ATIVA Distribuidora oferece?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Especializamos em verduras frescas (alface, couve, espinafre), hortaliças (tomate, abóbora, pimentão), frutas premium (maçã, laranja, banana, melões) e alimentos sazonais. Oferecemos mais de 1000 produtos diferentes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A ATIVA Distribuidora oferece desconto para grandes pedidos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim, oferecemos tabelas de preço especiais para restaurantes, supermercados e comércios de grande volume. Entre em contato conosco para solicitar uma cotação personalizada."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Qual é a qualidade dos produtos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Garantimos produtos de primeira qualidade, selecionados diariamente no CEASA. Temos avaliação de 4.9 de 5 estrelas de nossos clientes. Qualidade e frescor são nossas principais características."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Como entrar em contato com a ATIVA Distribuidora?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Você pode nos contatar pelo WhatsApp: (62) 99978-9984, por email: contato@ativadistribuidora.com.br ou visitar nosso local no CEASA. Atendimento em 24h para suas dúvidas e pedidos."
+          }
         }
       ]
     }

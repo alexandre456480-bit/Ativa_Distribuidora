@@ -1,0 +1,34 @@
+{
+  "name": "ATIVA Distribuidora - Verduras, Hortaliças e Frutas Frescas",
+  "short_name": "ATIVA Distribuidora",
+  "description": "Distribuição de verduras, hortaliças e frutas frescas no CEASA. Fornecedor de alimentos premium.",
+  "start_url": "https://ativa-distribuidora.onrender.com/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/logo_distribuidora.png",
+      "sizes": "300x300",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/static/logo_distribuidora.png",
+      "sizes": "300x300",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["food", "shopping"],
+  "scope": "/",
+  "lang": "pt-BR"
+}

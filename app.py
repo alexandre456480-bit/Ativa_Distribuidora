@@ -96,6 +96,16 @@ def login():
 def logout():
     return redirect("/")
 
+# ---------- FAVICON E ASSETS ----------
+@app.route("/favicon.ico")
+def favicon():
+    """Serve favicon com cache headers otimizado para Google"""
+    return send_file(
+        os.path.join(basedir, "static/favicon.ico"),
+        mimetype="image/x-icon",
+        cache_timeout=31536000  # 1 ano
+    )
+
 # ---------- ROTAS ----------
 @app.route("/")
 def index():

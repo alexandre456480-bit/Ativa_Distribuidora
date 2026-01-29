@@ -7,6 +7,7 @@ Allow: /
 Allow: /sistema
 Allow: /login
 Allow: /static/
+Allow: /favicon.ico
 Allow: /sitemap.xml
 Allow: /robots.txt
 Disallow: /admin/
@@ -18,10 +19,14 @@ Disallow: /cache/
 # Permissões específicas para Google
 User-agent: Googlebot
 Allow: /
+Allow: /favicon.ico
+Allow: /static/
 
 # Permissões específicas para Bing
 User-agent: Bingbot
 Allow: /
+Allow: /favicon.ico
+Allow: /static/
 
 # Crawl delay para evitar sobrecarga
 Crawl-delay: 1
